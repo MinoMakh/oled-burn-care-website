@@ -746,339 +746,108 @@ const App = () => {
                         Types of Data Collected
                      </h3>
 
-                     <h4 className="text-lg font-semibold text-white mt-4 mb-2">
-                        Personal Data
-                     </h4>
-                     <p>
-                        While using Our Service, We may ask You to provide Us with
-                        certain personally identifiable information that can be used to
-                        contact or identify You. Personally identifiable information may
-                        include, but is not limited to:
-                     </p>
-                     <ul className="list-disc ml-6 space-y-2">
-                        <li>Usage Data</li>
-                     </ul>
+                     <div className="bg-[#CDFF00]/10 border border-[#CDFF00] rounded-lg p-6 mb-6">
+                        <h4 className="text-lg font-semibold text-[#CDFF00] mb-3">
+                           No Data Collection
+                        </h4>
+                        <p className="text-white">
+                           <strong>
+                              OLED Burn Care does NOT collect, store, or transmit any
+                              personal data or usage information.
+                           </strong>{" "}
+                           The application operates entirely on your device and does not
+                           require an internet connection to function. We do not track
+                           your usage, collect analytics, or access any information from
+                           your device.
+                        </p>
+                     </div>
 
-                     <h4 className="text-lg font-semibold text-white mt-4 mb-2">
-                        Usage Data
-                     </h4>
                      <p>
-                        Usage Data is collected automatically when using the Service.
-                     </p>
-                     <p>
-                        Usage Data may include information such as Your Device's
-                        Internet Protocol address (e.g. IP address), browser type,
-                        browser version, the pages of our Service that You visit, the
-                        time and date of Your visit, the time spent on those pages,
-                        unique device identifiers and other diagnostic data.
-                     </p>
-                     <p>
-                        When You access the Service by or through a mobile device, We
-                        may collect certain information automatically, including, but
-                        not limited to, the type of mobile device You use, Your mobile
-                        device's unique ID, the IP address of Your mobile device, Your
-                        mobile operating system, the type of mobile Internet browser You
-                        use, unique device identifiers and other diagnostic data.
-                     </p>
-                     <p>
-                        We may also collect information that Your browser sends whenever
-                        You visit Our Service or when You access the Service by or
-                        through a mobile device.
+                        All features of OLED Burn Care (Scan Mode, Prevention Mode, and
+                        Fix Mode) work completely offline and locally on your device. No
+                        data ever leaves your device when using our application.
                      </p>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Tracking Technologies and Cookies
                      </h3>
                      <p>
-                        We use Cookies and similar tracking technologies to track the
-                        activity on Our Service and store certain information. Tracking
-                        technologies We use include beacons, tags, and scripts to
-                        collect and track information and to improve and analyze Our
-                        Service.
+                        <strong className="text-[#CDFF00]">
+                           OLED Burn Care does NOT use cookies, tracking technologies,
+                           web beacons, or any form of analytics.
+                        </strong>{" "}
+                        The mobile application operates entirely offline and does not
+                        track your activity or store any information about your usage.
                      </p>
-
-                     <p>The technologies We use may include:</p>
-                     <ul className="list-disc ml-6 space-y-2">
-                        <li>
-                           <strong className="text-white">
-                              Cookies or Browser Cookies.
-                           </strong>{" "}
-                           A cookie is a small file placed on Your Device. You can
-                           instruct Your browser to refuse all Cookies or to indicate
-                           when a Cookie is being sent. However, if You do not accept
-                           Cookies, You may not be able to use some parts of our Service.
-                        </li>
-                        <li>
-                           <strong className="text-white">Web Beacons.</strong> Certain
-                           sections of our Service and our emails may contain small
-                           electronic files known as web beacons (also referred to as
-                           clear gifs, pixel tags, and single-pixel gifs) that permit the
-                           Company, for example, to count users who have visited those
-                           pages or opened an email and for other related website
-                           statistics.
-                        </li>
-                     </ul>
-
                      <p>
-                        Cookies can be "Persistent" or "Session" Cookies. Persistent
-                        Cookies remain on Your personal computer or mobile device when
-                        You go offline, while Session Cookies are deleted as soon as You
-                        close Your web browser.
+                        This website may use basic cookies only for essential
+                        functionality (such as remembering if you've accepted the cookie
+                        notice). No tracking or analytics cookies are used.
                      </p>
-
-                     <p>
-                        We use both Session and Persistent Cookies for the purposes set
-                        out below:
-                     </p>
-                     <ul className="list-disc ml-6 space-y-3">
-                        <li>
-                           <strong className="text-white">
-                              Necessary / Essential Cookies
-                           </strong>
-                           <br />
-                           Type: Session Cookies
-                           <br />
-                           Administered by: Us
-                           <br />
-                           Purpose: These Cookies are essential to provide You with
-                           services available through the Website and to enable You to
-                           use some of its features.
-                        </li>
-                        <li>
-                           <strong className="text-white">
-                              Cookies Policy / Notice Acceptance Cookies
-                           </strong>
-                           <br />
-                           Type: Persistent Cookies
-                           <br />
-                           Administered by: Us
-                           <br />
-                           Purpose: These Cookies identify if users have accepted the use
-                           of cookies on the Website.
-                        </li>
-                        <li>
-                           <strong className="text-white">Functionality Cookies</strong>
-                           <br />
-                           Type: Persistent Cookies
-                           <br />
-                           Administered by: Us
-                           <br />
-                           Purpose: These Cookies allow us to remember choices You make
-                           when You use the Website.
-                        </li>
-                     </ul>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Use of Your Personal Data
                      </h3>
-                     <p>
-                        The Company may use Personal Data for the following purposes:
+                     <p className="text-[#CDFF00] font-semibold mb-4">
+                        Since OLED Burn Care does not collect any personal data, we do
+                        not use, process, or share any information about you.
                      </p>
-                     <ul className="list-disc ml-6 space-y-2">
-                        <li>
-                           To provide and maintain our Service, including to monitor the
-                           usage of our Service.
-                        </li>
-                        <li>
-                           To manage Your Account: to manage Your registration as a user
-                           of the Service.
-                        </li>
-                        <li>
-                           For the performance of a contract: the development, compliance
-                           and undertaking of the purchase contract for the products,
-                           items or services You have purchased.
-                        </li>
-                        <li>
-                           To contact You: To contact You by email, telephone calls, SMS,
-                           or other equivalent forms of electronic communication.
-                        </li>
-                        <li>
-                           To provide You with news, special offers, and general
-                           information about other goods, services and events which We
-                           offer.
-                        </li>
-                        <li>
-                           To manage Your requests: To attend and manage Your requests to
-                           Us.
-                        </li>
-                        <li>
-                           For business transfers: We may use Your information to
-                           evaluate or conduct a merger, divestiture, restructuring,
-                           reorganization, dissolution, or other sale or transfer of some
-                           or all of Our assets.
-                        </li>
-                        <li>
-                           For other purposes: We may use Your information for other
-                           purposes, such as data analysis, identifying usage trends,
-                           determining the effectiveness of our promotional campaigns.
-                        </li>
-                     </ul>
-
                      <p>
-                        We may share Your personal information in the following
-                        situations:
+                        The application functions entirely on your device without any
+                        data transmission to our servers or third parties. You maintain
+                        complete control and privacy while using OLED Burn Care.
                      </p>
-                     <ul className="list-disc ml-6 space-y-2">
-                        <li>
-                           <strong className="text-white">
-                              With Service Providers:
-                           </strong>{" "}
-                           We may share Your personal information with Service Providers
-                           to monitor and analyze the use of our Service.
-                        </li>
-                        <li>
-                           <strong className="text-white">
-                              For business transfers:
-                           </strong>{" "}
-                           We may share or transfer Your personal information in
-                           connection with, or during negotiations of, any merger, sale
-                           of Company assets, financing, or acquisition.
-                        </li>
-                        <li>
-                           <strong className="text-white">With Affiliates:</strong> We
-                           may share Your information with Our affiliates, in which case
-                           we will require those affiliates to honor this Privacy Policy.
-                        </li>
-                        <li>
-                           <strong className="text-white">
-                              With business partners:
-                           </strong>{" "}
-                           We may share Your information with Our business partners to
-                           offer You certain products, services or promotions.
-                        </li>
-                        <li>
-                           <strong className="text-white">With other users:</strong> when
-                           You share personal information or otherwise interact in the
-                           public areas with other users, such information may be viewed
-                           by all users.
-                        </li>
-                        <li>
-                           <strong className="text-white">With Your consent:</strong> We
-                           may disclose Your personal information for any other purpose
-                           with Your consent.
-                        </li>
-                     </ul>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Retention of Your Personal Data
                      </h3>
                      <p>
-                        The Company will retain Your Personal Data only for as long as
-                        is necessary for the purposes set out in this Privacy Policy. We
-                        will retain and use Your Personal Data to the extent necessary
-                        to comply with our legal obligations, resolve disputes, and
-                        enforce our legal agreements and policies.
-                     </p>
-                     <p>
-                        The Company will also retain Usage Data for internal analysis
-                        purposes. Usage Data is generally retained for a shorter period
-                        of time, except when this data is used to strengthen the
-                        security or to improve the functionality of Our Service.
+                        Since OLED Burn Care does not collect any personal data, there
+                        is no data to retain. All app functions operate locally on your
+                        device, and any settings or preferences you configure remain
+                        only on your device.
                      </p>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Transfer of Your Personal Data
                      </h3>
                      <p>
-                        Your information, including Personal Data, is processed at the
-                        Company's operating offices and in any other places where the
-                        parties involved in the processing are located. It means that
-                        this information may be transferred to — and maintained on —
-                        computers located outside of Your state, province, country or
-                        other governmental jurisdiction where the data protection laws
-                        may differ from those from Your jurisdiction.
-                     </p>
-                     <p>
-                        Your consent to this Privacy Policy followed by Your submission
-                        of such information represents Your agreement to that transfer.
-                     </p>
-                     <p>
-                        The Company will take all steps reasonably necessary to ensure
-                        that Your data is treated securely and in accordance with this
-                        Privacy Policy.
+                        OLED Burn Care does not collect or transfer any personal data.
+                        The application operates entirely on your device without any
+                        internet connection required. No information is transmitted to
+                        external servers or third parties.
                      </p>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Delete Your Personal Data
                      </h3>
                      <p>
-                        You have the right to delete or request that We assist in
-                        deleting the Personal Data that We have collected about You.
-                     </p>
-                     <p>
-                        Our Service may give You the ability to delete certain
-                        information about You from within the Service.
-                     </p>
-                     <p>
-                        You may update, amend, or delete Your information at any time by
-                        signing in to Your Account, if you have one, and visiting the
-                        account settings section that allows you to manage Your personal
-                        information. You may also contact Us to request access to,
-                        correct, or delete any personal information that You have
-                        provided to Us.
-                     </p>
-                     <p>
-                        Please note, however, that We may need to retain certain
-                        information when we have a legal obligation or lawful basis to
-                        do so.
+                        Since OLED Burn Care does not collect any personal data, there
+                        is no data to delete from our servers. If you wish to remove the
+                        app and any locally stored settings, you can simply uninstall
+                        the application from your device.
                      </p>
 
                      <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
                         Disclosure of Your Personal Data
                      </h2>
 
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Business Transactions
-                     </h3>
-                     <p>
-                        If the Company is involved in a merger, acquisition or asset
-                        sale, Your Personal Data may be transferred. We will provide
-                        notice before Your Personal Data is transferred and becomes
-                        subject to a different Privacy Policy.
+                     <p className="text-[#CDFF00] font-semibold mb-4">
+                        OLED Burn Care does not collect any personal data, therefore we
+                        have no data to disclose to third parties, business partners, or
+                        any other entities.
                      </p>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Law Enforcement
-                     </h3>
-                     <p>
-                        Under certain circumstances, the Company may be required to
-                        disclose Your Personal Data if required to do so by law or in
-                        response to valid requests by public authorities (e.g. a court
-                        or a government agency).
-                     </p>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Other Legal Requirements
-                     </h3>
-                     <p>
-                        The Company may disclose Your Personal Data in the good faith
-                        belief that such action is necessary to:
-                     </p>
-                     <ul className="list-disc ml-6 space-y-2">
-                        <li>Comply with a legal obligation</li>
-                        <li>
-                           Protect and defend the rights or property of the Company
-                        </li>
-                        <li>
-                           Prevent or investigate possible wrongdoing in connection with
-                           the Service
-                        </li>
-                        <li>
-                           Protect the personal safety of Users of the Service or the
-                           public
-                        </li>
-                        <li>Protect against legal liability</li>
-                     </ul>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Security of Your Personal Data
                      </h3>
                      <p>
-                        The security of Your Personal Data is important to Us, but
-                        remember that no method of transmission over the Internet, or
-                        method of electronic storage is 100% secure. While We strive to
-                        use commercially reasonable means to protect Your Personal Data,
-                        We cannot guarantee its absolute security.
+                        Your privacy is inherently protected because OLED Burn Care does
+                        not collect, transmit, or store any personal data. All app
+                        functionality operates locally on your device, ensuring that
+                        your information never leaves your device. There are no servers,
+                        databases, or third-party services that have access to your
+                        usage of the app.
                      </p>
 
                      <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
