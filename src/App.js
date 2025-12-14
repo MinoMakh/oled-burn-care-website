@@ -175,7 +175,7 @@ const App = () => {
                   burn-in on your Android device. Keep your display pristine.
                </p>
                <a
-                  href="https://play.google.com/store"
+                  href="https://play.google.com/store/apps/details?id=com.oledcare.oledburncare&pcampaignid=web_share"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-[#CDFF00] text-[#0A0A0A] px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#B8E600] transition-all transform hover:scale-105"
