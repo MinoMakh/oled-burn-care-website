@@ -5,6 +5,7 @@ import {
    Smartphone,
    Shield,
    Zap,
+   Moon,
    CheckCircle,
    Mail,
 } from "lucide-react";
@@ -252,10 +253,10 @@ const App = () => {
          {/* Features Section */}
          <section className="py-20 px-4">
             <div className="max-w-7xl mx-auto">
-               <h2 className="text-4xl font-bold text-white mb-16 text-center">
-                  Three Powerful Modes
-               </h2>
-               <div className="grid md:grid-cols-3 gap-8">
+                <h2 className="text-4xl font-bold text-white mb-16 text-center">
+                   Four Powerful Modes
+                </h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                   {/* Scan Mode */}
                   <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A] hover:border-[#CDFF00] transition-all">
                      <div className="bg-[#CDFF00]/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
@@ -332,6 +333,35 @@ const App = () => {
                         <li className="flex items-center text-[#9CA3AF]">
                            <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
                            Restore uniformity
+                        </li>
+                     </ul>
+                  </div>
+
+                  {/* Screen Off Mode */}
+                  <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A] hover:border-[#CDFF00] transition-all">
+                     <div className="bg-[#CDFF00]/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <Moon className="w-8 h-8 text-[#CDFF00]" />
+                     </div>
+                     <h3 className="text-2xl font-bold text-white mb-4">
+                        Screen Off Mode
+                     </h3>
+                     <p className="text-[#9CA3AF] mb-6">
+                        Black out your display while apps keep running in the
+                        background, with quick toggle gestures and anti burn-in
+                        drift support.
+                     </p>
+                     <ul className="space-y-3">
+                        <li className="flex items-center text-[#9CA3AF]">
+                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
+                           Floating bubble toggle
+                        </li>
+                        <li className="flex items-center text-[#9CA3AF]">
+                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
+                           Clock and battery display
+                        </li>
+                        <li className="flex items-center text-[#9CA3AF]">
+                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
+                           Anti burn-in drift
                         </li>
                      </ul>
                   </div>
@@ -627,7 +657,7 @@ const App = () => {
       <div className="min-h-screen bg-[#0A0A0A] pt-24 px-4 pb-20">
          <div className="max-w-4xl mx-auto">
             <h1 className="text-5xl font-bold text-white mb-6">Privacy Policy</h1>
-            <p className="text-[#9CA3AF] mb-8">Last updated: November 21, 2025</p>
+            <p className="text-[#9CA3AF] mb-8">Last updated: April 12, 2026</p>
 
             <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A]">
                <div className="prose prose-invert max-w-none">
@@ -748,37 +778,38 @@ const App = () => {
 
                      <div className="bg-[#CDFF00]/10 border border-[#CDFF00] rounded-lg p-6 mb-6">
                         <h4 className="text-lg font-semibold text-[#CDFF00] mb-3">
-                           No Data Collection
+                           App Data and Ads
                         </h4>
                         <p className="text-white">
                            <strong>
-                              OLED Burn Care does NOT collect, store, or transmit any
-                              personal data or usage information.
+                              Overlay configurations are stored locally on your device.
                            </strong>{" "}
-                           The application operates entirely on your device and does not
-                           require an internet connection to function. We do not track
-                           your usage, collect analytics, or access any information from
-                           your device.
+                           The app also uses ads to support the service. Advertising and
+                           mediation providers may process device and ad-related
+                           information (for example advertising identifiers, IP address,
+                           app/device details, and ad interaction data) to deliver and
+                           measure ads.
                         </p>
                      </div>
 
-                     <p>
-                        All features of OLED Burn Care (Scan Mode, Prevention Mode, and
-                        Fix Mode) work completely offline and locally on your device. No
-                        data ever leaves your device when using our application.
-                     </p>
+                      <p>
+                         Core burn-in protection features run locally on your device.
+                         Network access is used for ad delivery and related privacy
+                         choices where applicable.
+                      </p>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Tracking Technologies and Cookies
                      </h3>
-                     <p>
-                        <strong className="text-[#CDFF00]">
-                           OLED Burn Care does NOT use cookies, tracking technologies,
-                           web beacons, or any form of analytics.
-                        </strong>{" "}
-                        The mobile application operates entirely offline and does not
-                        track your activity or store any information about your usage.
-                     </p>
+                      <p>
+                         <strong className="text-[#CDFF00]">
+                            The app uses advertising technologies from verified ad
+                            partners.
+                         </strong>{" "}
+                         These technologies can be used to serve ads, limit ad fraud,
+                         and measure ad performance, subject to applicable laws and your
+                         consent choices.
+                      </p>
                      <p>
                         This website may use basic cookies only for essential
                         functionality (such as remembering if you've accepted the cookie
@@ -788,67 +819,61 @@ const App = () => {
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Use of Your Personal Data
                      </h3>
-                     <p className="text-[#CDFF00] font-semibold mb-4">
-                        Since OLED Burn Care does not collect any personal data, we do
-                        not use, process, or share any information about you.
-                     </p>
-                     <p>
-                        The application functions entirely on your device without any
-                        data transmission to our servers or third parties. You maintain
-                        complete control and privacy while using OLED Burn Care.
-                     </p>
+                      <p className="text-[#CDFF00] font-semibold mb-4">
+                         We use data related to ad delivery and app operation to provide
+                         and improve the Service.
+                      </p>
+                      <p>
+                         This includes local app settings and ad-related processing by
+                         verified ad partners. For users in applicable regions, consent
+                         choices are handled through supported consent tools in the app.
+                      </p>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Retention of Your Personal Data
                      </h3>
-                     <p>
-                        Since OLED Burn Care does not collect any personal data, there
-                        is no data to retain. All app functions operate locally on your
-                        device, and any settings or preferences you configure remain
-                        only on your device.
-                     </p>
+                      <p>
+                         Local settings remain on your device. Ad-related data retention
+                         is managed by verified ad partners according to their policies
+                         and applicable law.
+                      </p>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Transfer of Your Personal Data
                      </h3>
-                     <p>
-                        OLED Burn Care does not collect or transfer any personal data.
-                        The application operates entirely on your device without any
-                        internet connection required. No information is transmitted to
-                        external servers or third parties.
-                     </p>
+                      <p>
+                         Ad-related data may be processed and transferred by verified ad
+                         partners as required to deliver, secure, and measure ads.
+                      </p>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Delete Your Personal Data
                      </h3>
-                     <p>
-                        Since OLED Burn Care does not collect any personal data, there
-                        is no data to delete from our servers. If you wish to remove the
-                        app and any locally stored settings, you can simply uninstall
-                        the application from your device.
-                     </p>
+                      <p>
+                         You can delete local app data by clearing app storage or
+                         uninstalling the app. For ad-related data controls, use the
+                         in-app privacy options where available.
+                      </p>
 
                      <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
                         Disclosure of Your Personal Data
                      </h2>
 
-                     <p className="text-[#CDFF00] font-semibold mb-4">
-                        OLED Burn Care does not collect any personal data, therefore we
-                        have no data to disclose to third parties, business partners, or
-                        any other entities.
-                     </p>
+                      <p className="text-[#CDFF00] font-semibold mb-4">
+                         We do not sell your local overlay configurations. Ad-related
+                         processing may involve verified ad partners to deliver and
+                         measure ads.
+                      </p>
 
                      <h3 className="text-xl font-semibold text-white mt-6 mb-3">
                         Security of Your Personal Data
                      </h3>
-                     <p>
-                        Your privacy is inherently protected because OLED Burn Care does
-                        not collect, transmit, or store any personal data. All app
-                        functionality operates locally on your device, ensuring that
-                        your information never leaves your device. There are no servers,
-                        databases, or third-party services that have access to your
-                        usage of the app.
-                     </p>
+                      <p>
+                         We apply reasonable measures to protect app functionality and
+                         local settings. Ad-related security and processing controls are
+                         handled by verified ad partners under their own policies and
+                         compliance frameworks.
+                      </p>
 
                      <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
                         Children's Privacy
