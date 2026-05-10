@@ -1,976 +1,275 @@
-import React, { useState, useEffect } from "react";
-import {
-   Menu,
-   X,
-   Smartphone,
-   Shield,
-   Zap,
-   Moon,
-   CheckCircle,
-   Mail,
-} from "lucide-react";
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Fix from './pages/Fix';
+import Learn from './pages/Learn';
+import Faq from './pages/Faq';
+import Contact from './pages/Contact';
+import Privacy from './pages/Privacy';
+import NotFound from './pages/NotFound';
+import Scan from './pages/Scan';
 
-const App = () => {
-   const [currentPage, setCurrentPage] = useState("home");
-   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+const BASE_URL = 'https://www.oledburncare.com';
 
-   // Handle URL routing
-   useEffect(() => {
-      const path = window.location.pathname;
-      if (path === "/contact") {
-         setCurrentPage("contact");
-      } else if (path === "/privacy-policy") {
-         setCurrentPage("privacy");
-      } else {
-         setCurrentPage("home");
+const pageMeta = {
+  '/': {
+    title: 'OLED Burn-in: Fix, Prevent & Understand | OLED Burn Care',
+    description: 'Free online pixel refresh tool to fix OLED burn-in, plus a burn-in scanner and comprehensive guides. Learn what causes screen burn and how to prevent it on any OLED display.',
+    jsonLd: [{
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'OLED Burn Care — Free Burn-in Fix & Scan Tool',
+      'description': 'Free online pixel refresh tool to fix OLED burn-in, plus a burn-in scanner and comprehensive guides.',
+      'url': BASE_URL,
+      'isPartOf': { '@type': 'WebSite', 'name': 'OLED Burn Care', 'url': BASE_URL },
+      'breadcrumb': {
+        '@type': 'BreadcrumbList',
+        'itemListElement': [{ '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': BASE_URL }]
       }
-   }, []);
-
-   const navigateTo = (page) => {
-      setCurrentPage(page);
-      const paths = {
-         home: "/",
-         contact: "/contact",
-         privacy: "/privacy-policy",
-      };
-      window.history.pushState({}, "", paths[page]);
-      window.scrollTo(0, 0);
-   };
-
-   // Handle browser back/forward buttons
-   useEffect(() => {
-      const handlePopState = () => {
-         const path = window.location.pathname;
-         if (path === "/contact") {
-            setCurrentPage("contact");
-         } else if (path === "/privacy-policy") {
-            setCurrentPage("privacy");
-         } else {
-            setCurrentPage("home");
-         }
-      };
-
-      window.addEventListener("popstate", handlePopState);
-      return () => window.removeEventListener("popstate", handlePopState);
-   }, []);
-
-   // Set page metadata
-   useEffect(() => {
-      const titles = {
-         home: "OLED Burn Care - Protect & Fix Your OLED Screen",
-         contact: "Contact Us - OLED Burn Care",
-         privacy: "Privacy Policy - OLED Burn Care",
-      };
-
-      const descriptions = {
-         home: "The ultimate Android app to prevent, detect, and fix OLED screen burn-in. Keep your display pristine with our Scan, Prevention, and Fix modes.",
-         contact:
-            "Get in touch with the OLED Burn Care team. We're here to help with any questions or feedback.",
-         privacy:
-            "Read the privacy policy for OLED Burn Care and learn how we protect your data.",
-      };
-
-      document.title = titles[currentPage];
-
-      let metaDescription = document.querySelector('meta[name="description"]');
-      if (!metaDescription) {
-         metaDescription = document.createElement("meta");
-         metaDescription.name = "description";
-         document.head.appendChild(metaDescription);
+    }],
+  },
+  '/fix': {
+    title: 'Free OLED Burn-in Pixel Refresh Tool | Fix Screen Burn Online',
+    description: 'Free online pixel refresh tool to reduce OLED burn-in. Rapidly cycles random pixels to refresh degraded OLED pixels. Fullscreen, timer, break reminders. No download required.',
+    jsonLd: [{
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'Free OLED Burn-in Fix Tool',
+      'description': 'Free online pixel refresh tool to reduce OLED burn-in by rapidly cycling random pixels.',
+      'url': `${BASE_URL}/fix`,
+      'isPartOf': { '@type': 'WebSite', 'name': 'OLED Burn Care', 'url': BASE_URL },
+      'breadcrumb': {
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': BASE_URL },
+          { '@type': 'ListItem', 'position': 2, 'name': 'Fix Tool', 'item': `${BASE_URL}/fix` }
+        ]
       }
-      metaDescription.content = descriptions[currentPage];
-   }, [currentPage]);
-
-   const NavBar = () => (
-      <nav className="fixed w-full top-0 z-50 bg-[#0A0A0A]/95 backdrop-blur-sm border-b border-[#1A1A1A]">
-         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-               <button
-                  onClick={() => navigateTo("home")}
-                  className="flex items-center space-x-2"
-               >
-                  <Smartphone className="w-8 h-8 text-[#CDFF00]" />
-                  <span className="text-xl font-bold text-white">OLED Burn Care</span>
-               </button>
-
-               <div className="hidden md:flex space-x-8">
-                  <button
-                     onClick={() => navigateTo("home")}
-                     className={`${currentPage === "home" ? "text-[#CDFF00]" : "text-[#9CA3AF]"} hover:text-[#CDFF00] transition-colors`}
-                  >
-                     Home
-                  </button>
-                  <button
-                     onClick={() => navigateTo("contact")}
-                     className={`${currentPage === "contact" ? "text-[#CDFF00]" : "text-[#9CA3AF]"} hover:text-[#CDFF00] transition-colors`}
-                  >
-                     Contact
-                  </button>
-                  <button
-                     onClick={() => navigateTo("privacy")}
-                     className={`${currentPage === "privacy" ? "text-[#CDFF00]" : "text-[#9CA3AF]"} hover:text-[#CDFF00] transition-colors`}
-                  >
-                     Privacy Policy
-                  </button>
-               </div>
-
-               <button
-                  className="md:hidden text-white"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-               >
-                  {mobileMenuOpen ? (
-                     <X className="w-6 h-6" />
-                  ) : (
-                     <Menu className="w-6 h-6" />
-                  )}
-               </button>
-            </div>
-         </div>
-
-         {mobileMenuOpen && (
-            <div className="md:hidden bg-[#1A1A1A] border-t border-[#2A2A2A]">
-               <div className="px-4 pt-2 pb-4 space-y-2">
-                  <button
-                     onClick={() => {
-                        navigateTo("home");
-                        setMobileMenuOpen(false);
-                     }}
-                     className="block w-full text-left py-2 text-[#9CA3AF] hover:text-[#CDFF00]"
-                  >
-                     Home
-                  </button>
-                  <button
-                     onClick={() => {
-                        navigateTo("contact");
-                        setMobileMenuOpen(false);
-                     }}
-                     className="block w-full text-left py-2 text-[#9CA3AF] hover:text-[#CDFF00]"
-                  >
-                     Contact
-                  </button>
-                  <button
-                     onClick={() => {
-                        navigateTo("privacy");
-                        setMobileMenuOpen(false);
-                     }}
-                     className="block w-full text-left py-2 text-[#9CA3AF] hover:text-[#CDFF00]"
-                  >
-                     Privacy Policy
-                  </button>
-               </div>
-            </div>
-         )}
-      </nav>
-   );
-
-   const HomePage = () => (
-      <div className="min-h-screen bg-[#0A0A0A]">
-         {/* Hero Section */}
-         <section className="pt-32 pb-20 px-4">
-            <div className="max-w-7xl mx-auto text-center">
-               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-                  Protect Your <span className="text-[#CDFF00]">OLED Screen</span>
-               </h1>
-               <p className="text-xl text-[#9CA3AF] mb-8 max-w-3xl mx-auto">
-                  The ultimate solution to prevent, detect, and fix OLED screen
-                  burn-in on your Android device. Keep your display pristine.
-               </p>
-               <a
-                  href="https://play.google.com/store/apps/details?id=com.oledcare.oledburncare&pcampaignid=web_share"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-[#CDFF00] text-[#0A0A0A] px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#B8E600] transition-all transform hover:scale-105"
-               >
-                  Download on Google Play
-               </a>
-            </div>
-         </section>
-
-         {/* What is Screen Burn-in */}
-         <section className="py-20 px-4 bg-[#1A1A1A]">
-            <div className="max-w-7xl mx-auto">
-               <h2 className="text-4xl font-bold text-white mb-12 text-center">
-                  What is OLED Screen Burn-in?
-               </h2>
-               <div className="grid md:grid-cols-2 gap-12 items-center">
-                  <div>
-                     <p className="text-[#9CA3AF] text-lg mb-6">
-                        OLED burn-in occurs when static images displayed for extended
-                        periods leave permanent ghost images on your screen. This
-                        happens because OLED pixels emit their own light and gradually
-                        degrade over time.
-                     </p>
-                     <p className="text-[#9CA3AF] text-lg mb-6">
-                        Common causes include navigation bars, status icons, keyboard
-                        layouts, and any UI elements that remain stationary for long
-                        periods.
-                     </p>
-                     <p className="text-[#CDFF00] text-lg font-semibold">
-                        But don't worry – OLED Burn Care has you covered!
-                     </p>
-                  </div>
-                  <div className="bg-[#0A0A0A] p-8 rounded-lg border border-[#2A2A2A]">
-                     <div className="space-y-4">
-                        <div className="flex items-start space-x-3">
-                           <CheckCircle className="w-6 h-6 text-[#CDFF00] flex-shrink-0 mt-1" />
-                           <div>
-                              <h4 className="text-white font-semibold mb-1">
-                                 Static UI Elements
-                              </h4>
-                              <p className="text-[#9CA3AF] text-sm">
-                                 Navigation bars and status icons
-                              </p>
-                           </div>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                           <CheckCircle className="w-6 h-6 text-[#CDFF00] flex-shrink-0 mt-1" />
-                           <div>
-                              <h4 className="text-white font-semibold mb-1">
-                                 Extended Display Time
-                              </h4>
-                              <p className="text-[#9CA3AF] text-sm">
-                                 Prolonged exposure to same content
-                              </p>
-                           </div>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                           <CheckCircle className="w-6 h-6 text-[#CDFF00] flex-shrink-0 mt-1" />
-                           <div>
-                              <h4 className="text-white font-semibold mb-1">
-                                 High Brightness
-                              </h4>
-                              <p className="text-[#9CA3AF] text-sm">
-                                 Maximum brightness accelerates wear
-                              </p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
-
-         {/* Features Section */}
-         <section className="py-20 px-4">
-            <div className="max-w-7xl mx-auto">
-                <h2 className="text-4xl font-bold text-white mb-16 text-center">
-                   Four Powerful Modes
-                </h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {/* Scan Mode */}
-                  <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A] hover:border-[#CDFF00] transition-all">
-                     <div className="bg-[#CDFF00]/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
-                        <Smartphone className="w-8 h-8 text-[#CDFF00]" />
-                     </div>
-                     <h3 className="text-2xl font-bold text-white mb-4">Scan Mode</h3>
-                     <p className="text-[#9CA3AF] mb-6">
-                        Display static colors across your entire screen to easily
-                        identify any existing burn-in patterns or ghost images.
-                     </p>
-                     <ul className="space-y-3">
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Multiple color tests
-                        </li>
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Easy burn-in detection
-                        </li>
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Full screen coverage
-                        </li>
-                     </ul>
-                  </div>
-
-                  {/* Prevention Mode */}
-                  <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A] hover:border-[#CDFF00] transition-all">
-                     <div className="bg-[#CDFF00]/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
-                        <Shield className="w-8 h-8 text-[#CDFF00]" />
-                     </div>
-                     <h3 className="text-2xl font-bold text-white mb-4">
-                        Prevention Mode
-                     </h3>
-                     <p className="text-[#9CA3AF] mb-6">
-                        Create custom overlays to display on top of static UI elements,
-                        protecting vulnerable areas from permanent burn-in.
-                     </p>
-                     <ul className="space-y-3">
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Custom overlay creation
-                        </li>
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Target specific areas
-                        </li>
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Proactive protection
-                        </li>
-                     </ul>
-                  </div>
-
-                  {/* Fix Mode */}
-                  <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A] hover:border-[#CDFF00] transition-all">
-                     <div className="bg-[#CDFF00]/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
-                        <Zap className="w-8 h-8 text-[#CDFF00]" />
-                     </div>
-                     <h3 className="text-2xl font-bold text-white mb-4">Fix Mode</h3>
-                     <p className="text-[#9CA3AF] mb-6">
-                        Display rapidly flashing colors with random pixel patterns to
-                        help reduce existing burn-in and restore screen uniformity.
-                     </p>
-                     <ul className="space-y-3">
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Fast color cycling
-                        </li>
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Random pixel patterns
-                        </li>
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Restore uniformity
-                        </li>
-                     </ul>
-                  </div>
-
-                  {/* Screen Off Mode */}
-                  <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A] hover:border-[#CDFF00] transition-all">
-                     <div className="bg-[#CDFF00]/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
-                        <Moon className="w-8 h-8 text-[#CDFF00]" />
-                     </div>
-                     <h3 className="text-2xl font-bold text-white mb-4">
-                        Screen Off Mode
-                     </h3>
-                     <p className="text-[#9CA3AF] mb-6">
-                        Black out your display while apps keep running in the
-                        background, with quick toggle gestures and anti burn-in
-                        drift support.
-                     </p>
-                     <ul className="space-y-3">
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Floating bubble toggle
-                        </li>
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Clock and battery display
-                        </li>
-                        <li className="flex items-center text-[#9CA3AF]">
-                           <CheckCircle className="w-5 h-5 text-[#CDFF00] mr-2" />
-                           Anti burn-in drift
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </section>
-
-         {/* How It Works */}
-         <section className="py-20 px-4 bg-[#1A1A1A]">
-            <div className="max-w-7xl mx-auto">
-               <h2 className="text-4xl font-bold text-white mb-16 text-center">
-                  How It Works
-               </h2>
-               <div className="grid md:grid-cols-4 gap-8">
-                  <div className="text-center">
-                     <div className="bg-[#CDFF00] text-[#0A0A0A] w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                        1
-                     </div>
-                     <h4 className="text-white font-semibold mb-2">
-                        Download & Install
-                     </h4>
-                     <p className="text-[#9CA3AF] text-sm">
-                        Get OLED Burn Care from the Play Store
-                     </p>
-                  </div>
-                  <div className="text-center">
-                     <div className="bg-[#CDFF00] text-[#0A0A0A] w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                        2
-                     </div>
-                     <h4 className="text-white font-semibold mb-2">
-                        Scan Your Screen
-                     </h4>
-                     <p className="text-[#9CA3AF] text-sm">
-                        Use Scan Mode to detect any burn-in
-                     </p>
-                  </div>
-                  <div className="text-center">
-                     <div className="bg-[#CDFF00] text-[#0A0A0A] w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                        3
-                     </div>
-                     <h4 className="text-white font-semibold mb-2">Fix or Prevent</h4>
-                     <p className="text-[#9CA3AF] text-sm">
-                        Choose Fix Mode or Prevention Mode
-                     </p>
-                  </div>
-                  <div className="text-center">
-                     <div className="bg-[#CDFF00] text-[#0A0A0A] w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                        4
-                     </div>
-                     <h4 className="text-white font-semibold mb-2">
-                        Enjoy Perfect Display
-                     </h4>
-                     <p className="text-[#9CA3AF] text-sm">
-                        Keep your OLED screen in pristine condition
-                     </p>
-                  </div>
-               </div>
-            </div>
-         </section>
-
-         {/* CTA Section */}
-         <section className="py-20 px-4">
-            <div className="max-w-4xl mx-auto text-center bg-gradient-to-r from-[#1A1A1A] to-[#2A2A2A] p-12 rounded-2xl border border-[#CDFF00]/20">
-               <h2 className="text-4xl font-bold text-white mb-6">
-                  Ready to Protect Your Screen?
-               </h2>
-               <p className="text-xl text-[#9CA3AF] mb-8">
-                  Join thousands of users who trust OLED Burn Care to keep their
-                  displays perfect.
-               </p>
-               <a
-                  href="https://play.google.com/store"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-[#CDFF00] text-[#0A0A0A] px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#B8E600] transition-all transform hover:scale-105"
-               >
-                  Download Now - It's Free!
-               </a>
-            </div>
-         </section>
-
-         {/* Footer */}
-         <footer className="bg-[#1A1A1A] border-t border-[#2A2A2A] py-8 px-4">
-            <div className="max-w-7xl mx-auto text-center text-[#9CA3AF]">
-               <p>&copy; 2024 OLED Burn Care. All rights reserved.</p>
-            </div>
-         </footer>
-      </div>
-   );
-
-   const ContactPage = () => {
-      const [localFormData, setLocalFormData] = useState({
-         name: "",
-         email: "",
-         message: "",
-      });
-      const [localFormSubmitted, setLocalFormSubmitted] = useState(false);
-      const [isSubmitting, setIsSubmitting] = useState(false);
-      const [submitError, setSubmitError] = useState("");
-
-      const handleLocalFormSubmit = async () => {
-         if (
-            !localFormData.name ||
-            !localFormData.email ||
-            !localFormData.message
-         ) {
-            setSubmitError("Please fill in all fields");
-            return;
-         }
-
-         setIsSubmitting(true);
-         setSubmitError("");
-
-         try {
-            // Replace with your Formspree endpoint
-            const response = await fetch("https://formspree.io/f/xjkzkdpp", {
-               method: "POST",
-               headers: {
-                  "Content-Type": "application/json",
-               },
-               body: JSON.stringify({
-                  name: localFormData.name,
-                  email: localFormData.email,
-                  message: localFormData.message,
-               }),
-            });
-
-            if (response.ok) {
-               setLocalFormSubmitted(true);
-               setTimeout(() => {
-                  setLocalFormSubmitted(false);
-                  setLocalFormData({ name: "", email: "", message: "" });
-               }, 5000);
-            } else {
-               setSubmitError("Failed to send message. Please try again.");
-            }
-         } catch (error) {
-            setSubmitError("Network error. Please check your connection.");
-         } finally {
-            setIsSubmitting(false);
-         }
-      };
-
-      return (
-         <div className="min-h-screen bg-[#0A0A0A] pt-24 px-4 pb-20">
-            <div className="max-w-4xl mx-auto">
-               <h1 className="text-5xl font-bold text-white mb-6 text-center">
-                  Get in Touch
-               </h1>
-               <p className="text-xl text-[#9CA3AF] mb-12 text-center">
-                  Have questions or feedback? We'd love to hear from you.
-               </p>
-
-               <div className="grid md:grid-cols-2 gap-8 mb-12">
-                  <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A]">
-                     <div className="flex items-start space-x-4 mb-6">
-                        <Mail className="w-6 h-6 text-[#CDFF00] flex-shrink-0 mt-1" />
-                        <div>
-                           <h3 className="text-white font-semibold mb-2">Email Us</h3>
-                           <p className="text-[#9CA3AF]">alimakhloufj.apps@gmail.com</p>
-                        </div>
-                     </div>
-                     <div className="flex items-start space-x-4">
-                        <Smartphone className="w-6 h-6 text-[#CDFF00] flex-shrink-0 mt-1" />
-                        <div>
-                           <h3 className="text-white font-semibold mb-2">Support</h3>
-                           <p className="text-[#9CA3AF]">
-                              We typically respond within 24 hours
-                           </p>
-                        </div>
-                     </div>
-                  </div>
-
-                  <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A]">
-                     <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-                     <ul className="space-y-3">
-                        <li>
-                           <a
-                              href="https://play.google.com/store"
-                              className="text-[#CDFF00] hover:text-[#B8E600] transition-colors"
-                           >
-                              Download on Google Play →
-                           </a>
-                        </li>
-                        <li>
-                           <button
-                              onClick={() => navigateTo("privacy")}
-                              className="text-[#CDFF00] hover:text-[#B8E600] transition-colors"
-                           >
-                              Privacy Policy →
-                           </button>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-
-               <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A]">
-                  <h2 className="text-2xl font-bold text-white mb-6">
-                     Send Us a Message
-                  </h2>
-
-                  {localFormSubmitted ? (
-                     <div className="bg-[#CDFF00]/10 border border-[#CDFF00] rounded-lg p-6 text-center">
-                        <CheckCircle className="w-12 h-12 text-[#CDFF00] mx-auto mb-4" />
-                        <h3 className="text-white font-semibold text-xl mb-2">
-                           Message Sent!
-                        </h3>
-                        <p className="text-[#9CA3AF]">
-                           We'll get back to you as soon as possible.
-                        </p>
-                     </div>
-                  ) : (
-                     <div className="space-y-6">
-                        {submitError && (
-                           <div className="bg-red-500/10 border border-red-500 rounded-lg p-4 text-red-400">
-                              {submitError}
-                           </div>
-                        )}
-
-                        <div>
-                           <label className="block text-white font-semibold mb-2">
-                              Name
-                           </label>
-                           <input
-                              type="text"
-                              value={localFormData.name}
-                              onChange={(e) =>
-                                 setLocalFormData({
-                                    ...localFormData,
-                                    name: e.target.value,
-                                 })
-                              }
-                              className="w-full bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg px-4 py-3 text-white focus:border-[#CDFF00] focus:outline-none transition-colors"
-                              placeholder="Your name"
-                              disabled={isSubmitting}
-                           />
-                        </div>
-
-                        <div>
-                           <label className="block text-white font-semibold mb-2">
-                              Email
-                           </label>
-                           <input
-                              type="email"
-                              value={localFormData.email}
-                              onChange={(e) =>
-                                 setLocalFormData({
-                                    ...localFormData,
-                                    email: e.target.value,
-                                 })
-                              }
-                              className="w-full bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg px-4 py-3 text-white focus:border-[#CDFF00] focus:outline-none transition-colors"
-                              placeholder="your.email@example.com"
-                              disabled={isSubmitting}
-                           />
-                        </div>
-
-                        <div>
-                           <label className="block text-white font-semibold mb-2">
-                              Message
-                           </label>
-                           <textarea
-                              value={localFormData.message}
-                              onChange={(e) =>
-                                 setLocalFormData({
-                                    ...localFormData,
-                                    message: e.target.value,
-                                 })
-                              }
-                              rows="6"
-                              className="w-full bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg px-4 py-3 text-white focus:border-[#CDFF00] focus:outline-none transition-colors resize-none"
-                              placeholder="How can we help you?"
-                              disabled={isSubmitting}
-                           />
-                        </div>
-
-                        <button
-                           onClick={handleLocalFormSubmit}
-                           disabled={isSubmitting}
-                           className="w-full bg-[#CDFF00] text-[#0A0A0A] px-6 py-4 rounded-lg font-bold text-lg hover:bg-[#B8E600] transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                        >
-                           {isSubmitting ? "Sending..." : "Send Message"}
-                        </button>
-                     </div>
-                  )}
-               </div>
-            </div>
-         </div>
-      );
-   };
-
-   const PrivacyPage = () => (
-      <div className="min-h-screen bg-[#0A0A0A] pt-24 px-4 pb-20">
-         <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl font-bold text-white mb-6">Privacy Policy</h1>
-            <p className="text-[#9CA3AF] mb-8">Last updated: April 12, 2026</p>
-
-            <div className="bg-[#1A1A1A] p-8 rounded-lg border border-[#2A2A2A]">
-               <div className="prose prose-invert max-w-none">
-                  <div className="text-[#9CA3AF] leading-relaxed space-y-6">
-                     <p>
-                        This Privacy Policy describes Our policies and procedures on the
-                        collection, use and disclosure of Your information when You use
-                        the Service and tells You about Your privacy rights and how the
-                        law protects You.
-                     </p>
-
-                     <p>
-                        We use Your Personal data to provide and improve the Service. By
-                        using the Service, You agree to the collection and use of
-                        information in accordance with this Privacy Policy.
-                     </p>
-
-                     <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
-                        Interpretation and Definitions
-                     </h2>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Interpretation
-                     </h3>
-                     <p>
-                        The words whose initial letters are capitalized have meanings
-                        defined under the following conditions. The following
-                        definitions shall have the same meaning regardless of whether
-                        they appear in singular or in plural.
-                     </p>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Definitions
-                     </h3>
-                     <p>For the purposes of this Privacy Policy:</p>
-
-                     <ul className="list-disc ml-6 space-y-2">
-                        <li>
-                           <strong className="text-white">Account</strong> means a unique
-                           account created for You to access our Service or parts of our
-                           Service.
-                        </li>
-                        <li>
-                           <strong className="text-white">Affiliate</strong> means an
-                           entity that controls, is controlled by, or is under common
-                           control with a party, where "control" means ownership of 50%
-                           or more of the shares, equity interest or other securities
-                           entitled to vote for election of directors or other managing
-                           authority.
-                        </li>
-                        <li>
-                           <strong className="text-white">Application</strong> refers to
-                           OLED Burn Care, the software program provided by the Company.
-                        </li>
-                        <li>
-                           <strong className="text-white">Company</strong> (referred to
-                           as either "the Company", "We", "Us" or "Our" in this
-                           Agreement) refers to OLED Burn Care.
-                        </li>
-                        <li>
-                           <strong className="text-white">Cookies</strong> are small
-                           files that are placed on Your computer, mobile device or any
-                           other device by a website, containing the details of Your
-                           browsing history on that website among its many uses.
-                        </li>
-                        <li>
-                           <strong className="text-white">Country</strong> refers to:
-                           Palestinian Territories
-                        </li>
-                        <li>
-                           <strong className="text-white">Device</strong> means any
-                           device that can access the Service such as a computer, a cell
-                           phone or a digital tablet.
-                        </li>
-                        <li>
-                           <strong className="text-white">Personal Data</strong> is any
-                           information that relates to an identified or identifiable
-                           individual.
-                        </li>
-                        <li>
-                           <strong className="text-white">Service</strong> refers to the
-                           Application or the Website or both.
-                        </li>
-                        <li>
-                           <strong className="text-white">Service Provider</strong> means
-                           any natural or legal person who processes the data on behalf
-                           of the Company. It refers to third-party companies or
-                           individuals employed by the Company to facilitate the Service,
-                           to provide the Service on behalf of the Company, to perform
-                           services related to the Service or to assist the Company in
-                           analyzing how the Service is used.
-                        </li>
-                        <li>
-                           <strong className="text-white">Usage Data</strong> refers to
-                           data collected automatically, either generated by the use of
-                           the Service or from the Service infrastructure itself (for
-                           example, the duration of a page visit).
-                        </li>
-                        <li>
-                           <strong className="text-white">Website</strong> refers to OLED
-                           Burn Care, accessible from http://www.oledburncare.com
-                        </li>
-                        <li>
-                           <strong className="text-white">You</strong> means the
-                           individual accessing or using the Service, or the company, or
-                           other legal entity on behalf of which such individual is
-                           accessing or using the Service, as applicable.
-                        </li>
-                     </ul>
-
-                     <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
-                        Collecting and Using Your Personal Data
-                     </h2>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Types of Data Collected
-                     </h3>
-
-                     <div className="bg-[#CDFF00]/10 border border-[#CDFF00] rounded-lg p-6 mb-6">
-                        <h4 className="text-lg font-semibold text-[#CDFF00] mb-3">
-                           App Data and Ads
-                        </h4>
-                        <p className="text-white">
-                           <strong>
-                              Overlay configurations are stored locally on your device.
-                           </strong>{" "}
-                           The app also uses ads to support the service. Advertising and
-                           mediation providers may process device and ad-related
-                           information (for example advertising identifiers, IP address,
-                           app/device details, and ad interaction data) to deliver and
-                           measure ads.
-                        </p>
-                     </div>
-
-                      <p>
-                         Core burn-in protection features run locally on your device.
-                         Network access is used for ad delivery and related privacy
-                         choices where applicable.
-                      </p>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Tracking Technologies and Cookies
-                     </h3>
-                      <p>
-                         <strong className="text-[#CDFF00]">
-                            The app uses advertising technologies from verified ad
-                            partners.
-                         </strong>{" "}
-                         These technologies can be used to serve ads, limit ad fraud,
-                         and measure ad performance, subject to applicable laws and your
-                         consent choices.
-                      </p>
-                     <p>
-                        This website may use basic cookies only for essential
-                        functionality (such as remembering if you've accepted the cookie
-                        notice). No tracking or analytics cookies are used.
-                     </p>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Use of Your Personal Data
-                     </h3>
-                      <p className="text-[#CDFF00] font-semibold mb-4">
-                         We use data related to ad delivery and app operation to provide
-                         and improve the Service.
-                      </p>
-                      <p>
-                         This includes local app settings and ad-related processing by
-                         verified ad partners. For users in applicable regions, consent
-                         choices are handled through supported consent tools in the app.
-                      </p>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Retention of Your Personal Data
-                     </h3>
-                      <p>
-                         Local settings remain on your device. Ad-related data retention
-                         is managed by verified ad partners according to their policies
-                         and applicable law.
-                      </p>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Transfer of Your Personal Data
-                     </h3>
-                      <p>
-                         Ad-related data may be processed and transferred by verified ad
-                         partners as required to deliver, secure, and measure ads.
-                      </p>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Delete Your Personal Data
-                     </h3>
-                      <p>
-                         You can delete local app data by clearing app storage or
-                         uninstalling the app. For ad-related data controls, use the
-                         in-app privacy options where available.
-                      </p>
-
-                     <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
-                        Disclosure of Your Personal Data
-                     </h2>
-
-                      <p className="text-[#CDFF00] font-semibold mb-4">
-                         We do not sell your local overlay configurations. Ad-related
-                         processing may involve verified ad partners to deliver and
-                         measure ads.
-                      </p>
-
-                     <h3 className="text-xl font-semibold text-white mt-6 mb-3">
-                        Security of Your Personal Data
-                     </h3>
-                      <p>
-                         We apply reasonable measures to protect app functionality and
-                         local settings. Ad-related security and processing controls are
-                         handled by verified ad partners under their own policies and
-                         compliance frameworks.
-                      </p>
-
-                     <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
-                        Children's Privacy
-                     </h2>
-                     <p>
-                        Our Service does not address anyone under the age of 13. We do
-                        not knowingly collect personally identifiable information from
-                        anyone under the age of 13. If You are a parent or guardian and
-                        You are aware that Your child has provided Us with Personal
-                        Data, please contact Us. If We become aware that We have
-                        collected Personal Data from anyone under the age of 13 without
-                        verification of parental consent, We take steps to remove that
-                        information from Our servers.
-                     </p>
-                     <p>
-                        If We need to rely on consent as a legal basis for processing
-                        Your information and Your country requires consent from a
-                        parent, We may require Your parent's consent before We collect
-                        and use that information.
-                     </p>
-
-                     <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
-                        Links to Other Websites
-                     </h2>
-                     <p>
-                        Our Service may contain links to other websites that are not
-                        operated by Us. If You click on a third party link, You will be
-                        directed to that third party's site. We strongly advise You to
-                        review the Privacy Policy of every site You visit.
-                     </p>
-                     <p>
-                        We have no control over and assume no responsibility for the
-                        content, privacy policies or practices of any third party sites
-                        or services.
-                     </p>
-
-                     <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
-                        Changes to this Privacy Policy
-                     </h2>
-                     <p>
-                        We may update Our Privacy Policy from time to time. We will
-                        notify You of any changes by posting the new Privacy Policy on
-                        this page.
-                     </p>
-                     <p>
-                        We will let You know via email and/or a prominent notice on Our
-                        Service, prior to the change becoming effective and update the
-                        "Last updated" date at the top of this Privacy Policy.
-                     </p>
-                     <p>
-                        You are advised to review this Privacy Policy periodically for
-                        any changes. Changes to this Privacy Policy are effective when
-                        they are posted on this page.
-                     </p>
-
-                     <h2 className="text-2xl font-bold text-[#CDFF00] mt-8 mb-4">
-                        Contact Us
-                     </h2>
-                     <p>
-                        If you have any questions about this Privacy Policy, You can
-                        contact us:
-                     </p>
-                     <ul className="list-disc ml-6 space-y-2">
-                        <li>
-                           By email:{" "}
-                           <a
-                              href="mailto:alimakhloufj.apps@gmail.com"
-                              className="text-[#CDFF00] hover:text-[#B8E600]"
-                           >
-                              alimakhloufj.apps@gmail.com
-                           </a>
-                        </li>
-                        <li>
-                           By visiting this page on our website:{" "}
-                           <button
-                              onClick={() => navigateTo("contact")}
-                              className="text-[#CDFF00] hover:text-[#B8E600]"
-                           >
-                              http://www.oledburncare.com/contact
-                           </button>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   );
-
-   return (
-      <div className="min-h-screen bg-[#0A0A0A]">
-         <NavBar />
-         {currentPage === "home" && <HomePage />}
-         {currentPage === "contact" && <ContactPage />}
-         {currentPage === "privacy" && <PrivacyPage />}
-      </div>
-   );
+    }],
+  },
+  '/scan': {
+    title: 'Free OLED Burn-in Scanner | Detect Screen Damage Online',
+    description: 'Free online burn-in scanner. Display solid colors on your screen to detect ghost images, uneven patches, and burn-in damage on any OLED or AMOLED display. No download required.',
+    jsonLd: [{
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'Free OLED Burn-in Scanner',
+      'description': 'Free online burn-in scanner to detect OLED screen damage by displaying solid test colors.',
+      'url': `${BASE_URL}/scan`,
+      'isPartOf': { '@type': 'WebSite', 'name': 'OLED Burn Care', 'url': BASE_URL },
+      'breadcrumb': {
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': BASE_URL },
+          { '@type': 'ListItem', 'position': 2, 'name': 'Scan Tool', 'item': `${BASE_URL}/scan` }
+        ]
+      }
+    }],
+  },
+  '/learn': {
+    title: 'What Is OLED Burn-in? Causes, Prevention & Fixes',
+    description: 'Learn what causes OLED burn-in, how it differs from image retention, prevention tips, and when to seek professional repair. Comprehensive guide for OLED and AMOLED displays.',
+    jsonLd: [{
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'What Is OLED Burn-in? Causes, Prevention & Fixes',
+      'description': 'Learn what causes OLED burn-in, how it differs from image retention, and how to prevent it.',
+      'url': `${BASE_URL}/learn`,
+      'isPartOf': { '@type': 'WebSite', 'name': 'OLED Burn Care', 'url': BASE_URL },
+      'breadcrumb': {
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': BASE_URL },
+          { '@type': 'ListItem', 'position': 2, 'name': 'Learn', 'item': `${BASE_URL}/learn` }
+        ]
+      }
+    }, {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      'name': 'How to Prevent OLED Burn-in',
+      'description': 'Step-by-step guide to preventing OLED burn-in on your phone, TV, or monitor.',
+      'totalTime': 'PT5M',
+      'step': [
+        { '@type': 'HowToStep', 'name': 'Reduce brightness', 'text': 'Keep your screen brightness below 50-60% to reduce pixel wear.' },
+        { '@type': 'HowToStep', 'name': 'Use dark mode', 'text': 'OLED pixels are off when displaying black. Dark themes reduce pixel usage.' },
+        { '@type': 'HowToStep', 'name': 'Shorten screen timeout', 'text': 'Set screen timeout to 30 seconds or less to give pixels rest.' },
+        { '@type': 'HowToStep', 'name': 'Enable auto-brightness', 'text': 'Auto-brightness prevents unnecessary high brightness in dark environments.' },
+        { '@type': 'HowToStep', 'name': 'Rotate wallpapers', 'text': 'Avoid static wallpapers with bright, fixed elements that concentrate pixel wear.' },
+        { '@type': 'HowToStep', 'name': 'Use gesture navigation', 'text': 'Replace on-screen navigation buttons with gestures to prevent nav bar burn-in.' }
+      ]
+    }],
+  },
+  '/faq': {
+    title: 'OLED Burn-in FAQ: Common Questions & Answers',
+    description: 'Frequently asked questions about OLED burn-in. Learn whether burn-in is permanent, how to fix it, prevention tips, warranty coverage, and more.',
+    jsonLd: [{
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': [
+        {
+          '@type': 'Question',
+          'name': 'Is burn-in the same as image retention?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'No. Image retention is temporary — a faint ghost image that fades within minutes to hours. Burn-in is permanent uneven pixel wear that persists regardless of what is displayed. Both can be improved with pixel refresh, but burn-in takes longer to address and may not fully resolve.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Can OLED burn-in actually be fixed?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'Mild burn-in and image retention can often be reduced with pixel refresh techniques like our free Fix Tool, which rapidly cycles random pixels to stimulate equal wear. Deep, long-standing burn-in may be permanent, but pixel refresh can still make it less noticeable.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'How does the pixel refresh Fix Tool work?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'The Fix Tool displays rapidly cycling random pixel colors across your entire screen. This stimulates all OLED pixels equally, helping to normalize the uneven degradation that causes visible burn-in.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Does dark mode really help prevent burn-in?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'Yes, significantly. In OLED technology, black pixels are completely off — they emit no light and experience no degradation. Dark mode means fewer pixels are active, which directly reduces uneven wear.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Should I be worried about burn-in on a new phone?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'Modern OLED panels have improved significantly in burn-in resistance. Most users will never notice burn-in during a typical 2-3 year device lifespan if they follow basic prevention tips.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Is OLED burn-in covered under warranty?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'It varies by manufacturer and region. Some consider burn-in normal wear. Others have been known to replace screens with severe burn-in within the warranty period. Check your specific warranty terms.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'What is the difference between the web Fix Tool and the Android app?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'The web Fix Tool offers a pixel refresh mode and a burn-in scanner that work in your browser. The Android app adds Scan Mode to detect burn-in, Prevention Mode for custom overlays, and Screen Off Mode with anti-drift protection.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Will running the Fix Tool damage my screen?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'The Fix Tool exercises pixels at high intensity, similar to built-in pixel refresh features. It will not damage your screen, but we recommend taking breaks every 30 minutes.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'What is the best brightness level for preventing burn-in?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'Keep brightness between 30-60% for daily use. Below 30% can stress pixels, while above 70% accelerates aging. Auto-brightness is ideal.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Can burn-in happen on TVs and monitors too?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'Yes. Any OLED display can experience burn-in — phones, tablets, TVs, and monitors. The same prevention principles apply.' }
+        },
+        {
+          '@type': 'Question',
+          'name': 'How do I know if I have burn-in or just image retention?',
+          'acceptedAnswer': { '@type': 'Answer', 'text': 'Display a solid white or gray screen and look for faint ghost images. If the ghost disappears within minutes to hours, it is image retention. If it persists for days, it is burn-in. Our Scan Tool can help you check.' }
+        }
+      ]
+    }, {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      'itemListElement': [
+        { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': BASE_URL },
+        { '@type': 'ListItem', 'position': 2, 'name': 'FAQ', 'item': `${BASE_URL}/faq` }
+      ]
+    }],
+  },
+  '/contact': {
+    title: 'Contact Us — OLED Burn Care',
+    description: 'Get in touch with the OLED Burn Care team. Report issues, ask questions, or send feedback about our burn-in fix tools and guides.',
+    jsonLd: [{
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      'name': 'Contact OLED Burn Care',
+      'url': `${BASE_URL}/contact`,
+      'isPartOf': { '@type': 'WebSite', 'name': 'OLED Burn Care', 'url': BASE_URL },
+      'breadcrumb': {
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': BASE_URL },
+          { '@type': 'ListItem', 'position': 2, 'name': 'Contact', 'item': `${BASE_URL}/contact` }
+        ]
+      }
+    }],
+  },
+  '/privacy-policy': {
+    title: 'Privacy Policy — OLED Burn Care',
+    description: 'Read the privacy policy for OLED Burn Care. Learn how we handle your data, advertising partners, and your privacy rights.',
+    jsonLd: [{
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'Privacy Policy — OLED Burn Care',
+      'url': `${BASE_URL}/privacy-policy`,
+      'isPartOf': { '@type': 'WebSite', 'name': 'OLED Burn Care', 'url': BASE_URL },
+    }],
+  },
 };
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+const DocumentMeta = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const meta = pageMeta[pathname] || pageMeta['/'];
+    document.title = meta.title;
+
+    let desc = document.querySelector('meta[name="description"]');
+    if (!desc) {
+      desc = document.createElement('meta');
+      desc.name = 'description';
+      document.head.appendChild(desc);
+    }
+    desc.content = meta.description;
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = `${BASE_URL}${pathname}`;
+
+    let prevLdScripts = document.querySelectorAll('script[data-dynamic-ld]');
+    prevLdScripts.forEach(s => s.remove());
+
+    if (meta.jsonLd) {
+      meta.jsonLd.forEach((ld) => {
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.setAttribute('data-dynamic-ld', 'true');
+        script.textContent = JSON.stringify(ld);
+        document.head.appendChild(script);
+      });
+    }
+  }, [pathname]);
+
+  return null;
+};
+
+const App = () => (
+  <Router>
+    <ScrollToTop />
+    <DocumentMeta />
+    <div className="min-h-screen bg-void">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/fix" element={<Fix />} />
+        <Route path="/scan" element={<Scan />} />
+        <Route path="/learn" element={<Learn />} />
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy-policy" element={<Privacy />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </div>
+  </Router>
+);
 
 export default App;
