@@ -123,11 +123,15 @@ const Fix = () => {
     return () => window.removeEventListener('beforeunload', onBeforeUnload);
   }, [running]);
 
-  const handleStart = () => {
+  const handleStart = async () => {
     setRunning(true);
     setElapsed(0);
     lastBreakRef.current = 0;
     setShowBreak(false);
+    const el = document.getElementById('fix-tool-container');
+    if (el && !document.fullscreenElement) {
+      try { await el.requestFullscreen(); } catch (e) { /* fullscreen not supported or denied */ }
+    }
   };
 
   const handleStop = () => {
@@ -171,7 +175,7 @@ const Fix = () => {
               </div>
             </div>
             <div className="bg-lime/10 border border-lime/30 rounded-lg p-4 text-sm font-mono space-y-1">
-              <p className="text-lime flex items-center gap-2"><Maximize className="w-4 h-4 flex-shrink-0" /> Use fullscreen mode for maximum screen coverage and best results.</p>
+              <p className="text-lime flex items-center gap-2"><Maximize className="w-4 h-4 flex-shrink-0" /> Use fullscreen mode for maximum screen coverage.</p>
               <p className="text-lime flex items-center gap-2"><CheckCircle className="w-4 h-4 flex-shrink-0" /> For better results, turn your screen brightness to maximum before starting.</p>
               <p className="text-lime flex items-center gap-2"><CheckCircle className="w-4 h-4 flex-shrink-0" /> Longer sessions (30-60 min) yield better results for image retention.</p>
               <p className="text-lime flex items-center gap-2"><CheckCircle className="w-4 h-4 flex-shrink-0" /> Severe, long-standing burn-in may not respond to pixel refresh.</p>
@@ -195,21 +199,13 @@ const Fix = () => {
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-void/80 backdrop-blur-sm">
               <Zap className="w-16 h-16 text-lime mb-4 animate-pulse-glow" />
               <h2 className="text-2xl font-bold font-mono text-white mb-2">Ready to Start</h2>
-              <p className="text-muted mb-6 text-center px-8">Press Start to begin the pixel refresh cycle. For best results, use fullscreen mode.</p>
-              <div className="flex flex-wrap gap-3 justify-center">
-                <button
-                  onClick={handleStart}
-                  className="bg-lime text-void px-10 py-4 rounded-lg font-bold text-lg hover:bg-lime-hover transition-all animate-pulse-glow hover:scale-105 flex items-center gap-2"
-                >
-                  <Play className="w-5 h-5" /> Start
-                </button>
-                <button
-                  onClick={toggleFullscreen}
-                  className="bg-surface text-white px-6 py-4 rounded-lg font-bold text-lg border border-border hover:border-lime/50 transition-all flex items-center gap-2"
-                >
-                  <Maximize className="w-5 h-5" /> Fullscreen
-                </button>
-              </div>
+              <p className="text-muted mb-6 text-center px-8">Press Start to begin the pixel refresh cycle. Fullscreen mode will activate automatically.</p>
+              <button
+                onClick={handleStart}
+                className="bg-lime text-void px-10 py-4 rounded-lg font-bold text-lg hover:bg-lime-hover transition-all animate-pulse-glow hover:scale-105 flex items-center gap-2"
+              >
+                <Play className="w-5 h-5" /> Start
+              </button>
             </div>
           )}
 

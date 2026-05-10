@@ -164,7 +164,7 @@ const Home = () => (
 
         <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto mb-10">
           <ScrollReveal delay={0}>
-            <Link to="/fix?mode=fix" className="glass-card glass-card-hover rounded-2xl p-8 text-center block group">
+            <Link to="/fix" className="glass-card glass-card-hover rounded-2xl p-8 text-center block group">
               <div className="bg-void rounded-xl p-6 mb-5 relative overflow-hidden inline-block">
                 <div className="scan-lines absolute inset-0 opacity-30" />
                 <Zap className="w-12 h-12 text-lime relative z-10" />

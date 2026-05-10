@@ -17,24 +17,40 @@ const SCAN_COLORS = [
 
 const Scan = () => {
   const [selectedColor, setSelectedColor] = useState('white');
+  const [started, setStarted] = useState(false);
   const [uiHidden, setUiHidden] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const activeColor = SCAN_COLORS.find(c => c.id === selectedColor);
 
   const handleCanvasClick = () => {
+    if (!started) return;
     setUiHidden(!uiHidden);
+  };
+
+  const handleStart = async () => {
+    setStarted(true);
+    setUiHidden(false);
+    const el = document.getElementById('scan-tool-container');
+    if (el && !document.fullscreenElement) {
+      try { await el.requestFullscreen(); } catch (e) { /* fullscreen not supported or denied */ }
+    }
+  };
+
+  const handleExit = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+    setStarted(false);
+    setUiHidden(false);
   };
 
   const toggleFullscreen = useCallback(() => {
     const el = document.getElementById('scan-tool-container');
     if (!document.fullscreenElement) {
       el?.requestFullscreen?.();
-      setIsFullscreen(true);
     } else {
       document.exitFullscreen?.();
-      setIsFullscreen(false);
-      setUiHidden(false);
     }
   }, []);
 
@@ -64,8 +80,8 @@ const Scan = () => {
               Display solid colors on your screen to identify where burn-in has occurred. Look for faint ghost images, uneven patches, or discoloration against each solid color.
             </p>
             <div className="bg-lime/10 border border-lime/30 rounded-lg p-4 text-sm text-lime font-mono space-y-1">
+              <p className="flex items-center gap-2"><Maximize className="w-4 h-4 flex-shrink-0" /> Use fullscreen mode for maximum screen coverage.</p>
               <p className="flex items-center gap-2"><Eye className="w-4 h-4 flex-shrink-0" /> Tap the screen to hide all UI for a clean inspection.</p>
-              <p className="flex items-center gap-2"><Maximize className="w-4 h-4 flex-shrink-0" /> Use fullscreen mode for the most accurate results — the entire screen becomes the test color.</p>
             </div>
           </div>
         </div>
@@ -74,7 +90,7 @@ const Scan = () => {
       <div
         id="scan-tool-container"
         className={`relative ${isFullscreen ? 'fixed inset-0 z-50' : 'max-w-5xl mx-auto px-4 mb-8'}`}
-        style={{ backgroundColor: uiHidden && activeColor ? activeColor.hex : '#000000' }}
+        style={{ backgroundColor: started && activeColor ? activeColor.hex : '#000000' }}
       >
         <div
           className={`relative rounded-xl overflow-hidden ${isFullscreen ? '' : 'border border-border'}`}
@@ -82,17 +98,33 @@ const Scan = () => {
             ...(isFullscreen ? { height: '100vh' } : { height: '500px' }),
           }}
         >
-          <div
-            className="absolute inset-0 cursor-pointer"
-            style={{ backgroundColor: activeColor?.hex || '#FFFFFF' }}
-            onClick={handleCanvasClick}
-            role="button"
-            tabIndex={0}
-            aria-label="Tap to hide UI for clean inspection"
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCanvasClick(); }}
-          />
+          {started && (
+            <div
+              className="absolute inset-0 cursor-pointer"
+              style={{ backgroundColor: activeColor?.hex || '#FFFFFF' }}
+              onClick={handleCanvasClick}
+              role="button"
+              tabIndex={0}
+              aria-label="Tap to hide UI for clean inspection"
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCanvasClick(); }}
+            />
+          )}
 
-          {!uiHidden && (
+          {!started && !isFullscreen && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-void/80 backdrop-blur-sm">
+              <Eye className="w-16 h-16 text-lime mb-4 animate-pulse-glow" />
+              <h2 className="text-2xl font-bold font-mono text-white mb-2">Ready to Scan</h2>
+              <p className="text-muted mb-6 text-center px-8">Press Start to begin scanning. Fullscreen mode will activate automatically.</p>
+              <button
+                onClick={handleStart}
+                className="bg-lime text-void px-10 py-4 rounded-lg font-bold text-lg hover:bg-lime-hover transition-all animate-pulse-glow hover:scale-105 flex items-center gap-2"
+              >
+                <Eye className="w-5 h-5" /> Start Scanning
+              </button>
+            </div>
+          )}
+
+          {started && !uiHidden && (
             <>
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                 <p className="text-black/80 font-mono text-lg font-semibold text-center px-8 mb-2"
@@ -110,17 +142,26 @@ const Scan = () => {
                   <span className="text-white font-mono font-bold text-lg drop-shadow-lg">
                     Scan: {activeColor?.label}
                   </span>
-                  <button
-                    onClick={toggleFullscreen}
-                    className="bg-white/10 backdrop-blur-sm p-2 rounded-lg hover:bg-white/20 transition-colors pointer-events-auto"
-                    aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-                  >
-                    {isFullscreen ? (
-                      <Minimize className="w-5 h-5 text-white" />
-                    ) : (
-                      <Maximize className="w-5 h-5 text-white" />
-                    )}
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={toggleFullscreen}
+                      className="bg-white/10 backdrop-blur-sm p-2 rounded-lg hover:bg-white/20 transition-colors pointer-events-auto"
+                      aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+                    >
+                      {isFullscreen ? (
+                        <Minimize className="w-5 h-5 text-white" />
+                      ) : (
+                        <Maximize className="w-5 h-5 text-white" />
+                      )}
+                    </button>
+                    <button
+                      onClick={handleExit}
+                      className="bg-white/10 backdrop-blur-sm p-2 rounded-lg hover:bg-white/20 transition-colors pointer-events-auto"
+                      aria-label="Exit scanner"
+                    >
+                      <span className="text-white text-sm font-mono">Exit</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -145,7 +186,7 @@ const Scan = () => {
         </div>
       </div>
 
-      {!isFullscreen && (
+      {!isFullscreen && !started && (
         <div className="max-w-5xl mx-auto px-4 pb-20">
           <div className="glass-card rounded-xl p-6 mb-8">
             <h2 className="text-xl font-bold font-mono mb-4 text-lime">&gt; How to Scan for Burn-in</h2>
